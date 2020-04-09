@@ -86,7 +86,9 @@ function App() {
           <h2 className='component-title'>Button</h2>
           <Stack gap='30px'>
             <Button>Button</Button>
-            <Button isLoading>Loading Button</Button>
+            <Button isLoading aria-label='loading button'>
+              Loading Button
+            </Button>
             <Button disabled>Disabled Button</Button>
           </Stack>
         </section>
@@ -117,7 +119,11 @@ function App() {
         </section>
         <section className='component-wrapper'>
           <h2 className='component-title'>Image</h2>
-          <Image src='https://source.unsplash.com/random' maxWidth='20rem' />
+          <Image
+            src='https://source.unsplash.com/random'
+            maxWidth='20rem'
+            alt='A random picture from unsplash'
+          />
         </section>
         <section className='component-wrapper'>
           <h2 className='component-title'>Input</h2>
@@ -125,14 +131,20 @@ function App() {
             <Input
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder='Basic Input'
+              placeholder='placeholder'
+              aria-label='Basic Input'
             />
-            <Input disabled placeholder='Disabled Input' />
+            <Input
+              aria-label='Disabled Input'
+              disabled
+              placeholder='placeholder'
+            />
             <Input
               type='password'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder='Password Input'
+              placeholder='placeholder'
+              aria-label='Password Input'
             />
           </Stack>
         </section>
@@ -142,7 +154,7 @@ function App() {
             <InputField label='Basic Input' className='input-label white-text'>
               <Input
                 style={{ color: 'black' }}
-                placeholder='Basic Input'
+                placeholder='placeholder'
                 value={field}
                 onChange={(e) => {
                   setField(e.target.value);
@@ -161,7 +173,7 @@ function App() {
               <Input
                 style={{ color: 'black' }}
                 id='basicInput'
-                placeholder='Input with error'
+                placeholder='placeholder'
                 value={errorField}
                 onBlur={
                   !name ? () => setError('This field cannot be empty') : null
@@ -218,6 +230,7 @@ function App() {
         <section className='component-wrapper'>
           <h2 className='component-title'>Psuedo Box</h2>
           <PseudoBox
+            aria-label='Pseudo Box'
             as={Input}
             placeholder='Focus me'
             py={2}
@@ -249,12 +262,14 @@ function App() {
         <section className='component-wrapper'>
           <h2 className='component-title'>Select</h2>
           <Stack gap='20px'>
-            <Select>
+            <Select aria-label='Select Animal'>
               <option value='cat'>Cat</option>
               <option value='dog'>Dog</option>
               <option value='other'>Other</option>
             </Select>
-            <Select disabled>Disabled Select</Select>
+            <Select aria-label='Disabled Select' disabled>
+              Disabled Select
+            </Select>
           </Stack>
         </section>
 
@@ -286,6 +301,7 @@ function App() {
                   src='https://source.unsplash.com/nc8Qwfie-tU/400x400'
                   height='200px'
                   width='200px'
+                  alt='A random picture from unsplash'
                 />
               ) : (
                 <Skeleton width='200px' height='200px' />
@@ -304,7 +320,7 @@ function App() {
           <Switch
             switchSize='lg'
             switchColor='pink'
-            htmlFor='example1'
+            htmlFor='toggle switch'
             checked={checked}
             onChange={() => setChecked(!checked)}
           ></Switch>
@@ -349,14 +365,19 @@ function App() {
           <h2 className='component-title'>Tag</h2>
           <Stack horizontal gap='20px'>
             <Tag showIcon>#photography</Tag>
-            <Tag ml={2}>#nature</Tag>
-            <Tag ml={2}>#travel</Tag>
+            <Tag showIcon ml={2}>
+              #nature
+            </Tag>
+            <Tag showIcon ml={2}>
+              #travel
+            </Tag>
           </Stack>
         </section>
 
         <section className='component-wrapper left-align'>
           <h2 className='component-title'>Tags Input</h2>
           <TagsInput
+            aria-label='Tags Input'
             value={inputVal}
             tags={tags}
             onKeyDown={(e) => {
@@ -373,7 +394,7 @@ function App() {
         </section>
 
         <section className='component-wrapper left-align white-text'>
-          <h2 className='component-title'>Tag</h2>
+          <h2 className='component-title'>Text</h2>
           <Stack>
             <Text fontSize='xs'>Extra Small Text</Text>
             <Text fontSize='sm'>Small Text</Text>
