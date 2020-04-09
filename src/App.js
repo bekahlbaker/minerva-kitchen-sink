@@ -23,6 +23,15 @@ import {
   Select,
   Skeleton,
   Spinner,
+  Switch,
+  Table,
+  TableHeader,
+  TableRow,
+  TableHeaderCell,
+  TableBody,
+  TableCell,
+  Tag,
+  TagsInput,
   Text,
 } from 'minerva-ui';
 import './App.css';
@@ -37,6 +46,18 @@ function App() {
   const [open, setOpen] = React.useState(false);
   const [radio, setRadio] = React.useState('supreme');
   const [loading, setLoading] = React.useState(false);
+  const [tags, setTags] = React.useState([]);
+  const [inputVal, setInputVal] = React.useState('');
+
+  const addTag = (e) => {
+    setTags([...tags, inputVal]);
+    setInputVal('');
+  };
+
+  const removeTag = (index) => {
+    const updatedTags = tags.filter((_, i) => i !== index);
+    setTags(updatedTags);
+  };
 
   return (
     <ThemeProvider>
@@ -162,7 +183,7 @@ function App() {
             </Link>
           </Stack>
         </section>
-        <section className='component-wrapper'>
+        <section className='component-wrapper left-align'>
           <h2 className='component-title'>Modal</h2>
           <Button onClick={() => setOpen(true)}>Open Modal</Button>
           <Modal isOpen={open} onClose={() => setOpen(false)} overflow='hidden'>
@@ -212,12 +233,7 @@ function App() {
         </section>
         <section className='component-wrapper'>
           <h2 className='component-title'>Radio</h2>
-          <Heading
-            fontSize='lg'
-            fontWeight={600}
-            mb={3}
-            style={{ color: 'white', textAlign: 'left' }}
-          >
+          <Heading fontSize='lg' fontWeight={600} mb={3} className='white-text'>
             Pizza Toppings
           </Heading>
           <RadioGroup
@@ -231,7 +247,7 @@ function App() {
           </RadioGroup>
         </section>
         <section className='component-wrapper'>
-          <h2 className='component-title'>Icon</h2>
+          <h2 className='component-title'>Select</h2>
           <Stack gap='20px'>
             <Select>
               <option value='cat'>Cat</option>
@@ -242,48 +258,130 @@ function App() {
           </Stack>
         </section>
 
-        <section className='component-wrapper'>
+        <section className='component-wrapper left-align'>
           <h2 className='component-title'>Skeleton</h2>
           <span className='skeleton-title'>
-            Skeleton Text
+            <p>Skeleton Text</p>
             <Skeleton />
           </span>
           <span className='skeleton-title'>
-            Circular Skeleton
+            <p>Circular Skeleton</p>
             <Skeleton height='100px' width='100px' borderRadius='full' />
           </span>
           <span className='skeleton-title'>
-            Multi-line Skeleton with Custom Gap
+            <p>Multi-line Skeleton with Custom Gap</p>
             <Skeleton count={3} width='500px' gap='15px' />
           </span>
-          <span className='skeleton-title'>Skeleton Loading States</span>
-          <Button
-            mb='10px'
-            onClick={() => setLoading((prevState) => !prevState)}
-          >
-            {loading ? 'Loading...' : 'Loaded'}
-          </Button>
-          <div>
-            {!loading ? (
-              <Image
-                src='https://source.unsplash.com/nc8Qwfie-tU/400x400'
-                height='200px'
-                width='200px'
-              />
-            ) : (
-              <Skeleton width='200px' height='200px' />
-            )}
-          </div>
+          <span className='skeleton-title'>
+            <p>Skeleton Loading States</p>
+            <Button
+              mb='10px'
+              onClick={() => setLoading((prevState) => !prevState)}
+            >
+              {loading ? 'Loading...' : 'Loaded'}
+            </Button>
+            <div>
+              {!loading ? (
+                <Image
+                  src='https://source.unsplash.com/nc8Qwfie-tU/400x400'
+                  height='200px'
+                  width='200px'
+                />
+              ) : (
+                <Skeleton width='200px' height='200px' />
+              )}
+            </div>
+          </span>
+        </section>
+
+        <section className='component-wrapper left-align'>
+          <h2 className='component-title'>Spinner</h2>
+          <Spinner color='white' Spin />
+        </section>
+
+        <section className='component-wrapper left-align'>
+          <h2 className='component-title'>Switch</h2>
+          <Switch
+            switchSize='lg'
+            switchColor='pink'
+            htmlFor='example1'
+            checked={checked}
+            onChange={() => setChecked(!checked)}
+          ></Switch>
         </section>
 
         <section className='component-wrapper'>
-          <h2 className='component-title'>Spinner</h2>
-          <Spinner />
+          <h2 className='component-title'>Table</h2>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHeaderCell>Name</TableHeaderCell>
+                <TableHeaderCell>Job</TableHeaderCell>
+                <TableHeaderCell>Status</TableHeaderCell>
+                <TableHeaderCell>Role</TableHeaderCell>
+                <TableHeaderCell />
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>Test</TableCell>
+                <TableCell>Tester</TableCell>
+                <TableCell>Testing</TableCell>
+                <TableCell>Test Master</TableCell>
+                <TableCell>
+                  <Link>Edit</Link>
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Test</TableCell>
+                <TableCell>Tester</TableCell>
+                <TableCell>Testing</TableCell>
+                <TableCell>Test Master</TableCell>
+                <TableCell>
+                  <Link>Edit</Link>
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
         </section>
 
-        <section className='component-wrapper'>
-          <h2 className='component-title'>Spinner</h2>
-          <Spinner size='xl' color='red.400' label='Loading' />
+        <section className='component-wrapper left-align'>
+          <h2 className='component-title'>Tag</h2>
+          <Stack horizontal gap='20px'>
+            <Tag showIcon>#photography</Tag>
+            <Tag ml={2}>#nature</Tag>
+            <Tag ml={2}>#travel</Tag>
+          </Stack>
+        </section>
+
+        <section className='component-wrapper left-align'>
+          <h2 className='component-title'>Tags Input</h2>
+          <TagsInput
+            value={inputVal}
+            tags={tags}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && inputVal) {
+                addTag();
+              }
+              if (e.key === 'Backspace' && !inputVal) {
+                removeTag(tags.length - 1);
+              }
+            }}
+            onChange={(e) => setInputVal(e.target.value)}
+            onClickIcon={removeTag}
+          />
+        </section>
+
+        <section className='component-wrapper left-align white-text'>
+          <h2 className='component-title'>Tag</h2>
+          <Stack>
+            <Text fontSize='xs'>Extra Small Text</Text>
+            <Text fontSize='sm'>Small Text</Text>
+            <Text fontSize='md'>Medium Text</Text>
+            <Text fontSize='lg'>Large Text</Text>
+            <Text fontSize='xl'>Extra Large Text</Text>
+            <Text fontSize='2xl'>2x Large Text</Text>
+          </Stack>
         </section>
       </main>
     </ThemeProvider>
