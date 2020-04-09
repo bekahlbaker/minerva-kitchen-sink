@@ -18,6 +18,12 @@ import {
   ModalFooter,
   Flex,
   PseudoBox,
+  Radio,
+  RadioGroup,
+  Select,
+  Skeleton,
+  Spinner,
+  Text,
 } from 'minerva-ui';
 import './App.css';
 
@@ -29,6 +35,8 @@ function App() {
   const [error, setError] = React.useState('This field has an error');
   const [errorField, setErrorField] = React.useState('');
   const [open, setOpen] = React.useState(false);
+  const [radio, setRadio] = React.useState('supreme');
+  const [loading, setLoading] = React.useState(false);
 
   return (
     <ThemeProvider>
@@ -201,6 +209,81 @@ function App() {
             outline='none'
             _focus={{ backgroundColor: '#fff', borderColor: 'purple' }}
           />
+        </section>
+        <section className='component-wrapper'>
+          <h2 className='component-title'>Radio</h2>
+          <Heading
+            fontSize='lg'
+            fontWeight={600}
+            mb={3}
+            style={{ color: 'white', textAlign: 'left' }}
+          >
+            Pizza Toppings
+          </Heading>
+          <RadioGroup
+            onChange={(e) => setRadio(e.target.value)}
+            value={radio}
+            className='white-text'
+          >
+            <Radio value='supreme'>Supreme</Radio>
+            <Radio value='meat'>Meat</Radio>
+            <Radio value='vegetarian'>Vegetarian</Radio>
+          </RadioGroup>
+        </section>
+        <section className='component-wrapper'>
+          <h2 className='component-title'>Icon</h2>
+          <Stack gap='20px'>
+            <Select>
+              <option value='cat'>Cat</option>
+              <option value='dog'>Dog</option>
+              <option value='other'>Other</option>
+            </Select>
+            <Select disabled>Disabled Select</Select>
+          </Stack>
+        </section>
+
+        <section className='component-wrapper'>
+          <h2 className='component-title'>Skeleton</h2>
+          <span className='skeleton-title'>
+            Skeleton Text
+            <Skeleton />
+          </span>
+          <span className='skeleton-title'>
+            Circular Skeleton
+            <Skeleton height='100px' width='100px' borderRadius='full' />
+          </span>
+          <span className='skeleton-title'>
+            Multi-line Skeleton with Custom Gap
+            <Skeleton count={3} width='500px' gap='15px' />
+          </span>
+          <span className='skeleton-title'>Skeleton Loading States</span>
+          <Button
+            mb='10px'
+            onClick={() => setLoading((prevState) => !prevState)}
+          >
+            {loading ? 'Loading...' : 'Loaded'}
+          </Button>
+          <div>
+            {!loading ? (
+              <Image
+                src='https://source.unsplash.com/nc8Qwfie-tU/400x400'
+                height='200px'
+                width='200px'
+              />
+            ) : (
+              <Skeleton width='200px' height='200px' />
+            )}
+          </div>
+        </section>
+
+        <section className='component-wrapper'>
+          <h2 className='component-title'>Spinner</h2>
+          <Spinner />
+        </section>
+
+        <section className='component-wrapper'>
+          <h2 className='component-title'>Spinner</h2>
+          <Spinner size='xl' color='red.400' label='Loading' />
         </section>
       </main>
     </ThemeProvider>
